@@ -15,6 +15,7 @@ $(function () { //Ready handler
     $("#teams-menu").on("click", function (event) {
         event.preventDefault();
         well.empty();
+        //console.log($(this).attr("id"));
         console.log("Showing teams")
         $.ajax({
             url: "https://web422teamapi.herokuapp.com/teams",
