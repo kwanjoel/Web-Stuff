@@ -10,9 +10,8 @@
 ********************************************************************************/
 
 $(function () { //Ready handler
-let well=$("#well1");
+    let well = $("#well1");
     console.log("jQuery is ready")
-
     $("#teams-menu").on("click", function (event) {
         event.preventDefault();
         well.empty();
@@ -36,7 +35,7 @@ let well=$("#well1");
             url: "https://web422teamapi.herokuapp.com/employees",
             type: "GET",
             contentType: "application/json"
-        }).done(function(employees){
+        }).done(function (employees) {
             well.append($("<h3>Employees</h3>"));
             well.append(JSON.stringify(employees));
         })
@@ -50,7 +49,7 @@ let well=$("#well1");
             url: "https://web422teamapi.herokuapp.com/projects",
             type: "GET",
             contentType: "application/json"
-        }).done(function(projects){
+        }).done(function (projects) {
             well.append($("<h3>Projects</h3>"));
             well.append(JSON.stringify(projects));
         })
@@ -64,7 +63,7 @@ let well=$("#well1");
             url: "https://web422teamapi.herokuapp.com/positions",
             type: "GET",
             contentType: "application/json"
-        }).done(function(positions){
+        }).done(function (positions) {
             well.append($("<h3>Positions</h3>"));
             well.append(JSON.stringify(positions));
         })
