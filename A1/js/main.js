@@ -10,12 +10,12 @@
 ********************************************************************************/
 
 $(function () { //Ready handler
-let well=$(".well");
+let well=$("#well1");
     console.log("jQuery is ready")
 
     $("#teams-menu").on("click", function (event) {
         event.preventDefault();
-        $("#well1").empty();
+        well.empty();
         console.log("Showing teams")
         $.ajax({
             url: "https://web422teamapi.herokuapp.com/teams",
@@ -30,7 +30,7 @@ let well=$(".well");
 
     $("#employees-menu").on("click", function (event) {
         event.preventDefault();
-        $("#well1").empty();
+        well.empty();
         console.log("Showing employees")
         $.ajax({
             url: "https://web422teamapi.herokuapp.com/employees",
@@ -44,7 +44,7 @@ let well=$(".well");
 
     $("#projects-menu").on("click", function (event) {
         event.preventDefault();
-        $("#well1").empty();
+        well.empty();
         console.log("Showing projects")
         $.ajax({
             url: "https://web422teamapi.herokuapp.com/projects",
