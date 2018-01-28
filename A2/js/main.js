@@ -48,16 +48,10 @@ $(function () { //Ready handler\
 
     //Sorting
     $("#header-first-name").on('click', function () {
-        let count = 0;
         console.log("Sorting by FirstName");
-        if (count % 2 == 1) {
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
-        }
-        else {
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
-        }
-        console.log(count);
-        count++;
+        employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
+        //employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
+
         refreshEmployeeRows(employeesModel);
 
     })
