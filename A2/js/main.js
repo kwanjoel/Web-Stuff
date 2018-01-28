@@ -9,6 +9,7 @@
 *
 ********************************************************************************/
 var employeesModel = [];
+
 $(function () { //Ready handler\
     console.log("jQuery ready");
 
@@ -17,16 +18,63 @@ $(function () { //Ready handler\
     initializeEmployeesModel();
 
     //keyup event for search field
-    $("#employee-search").keyup(function() {
+    $("#employee-search").keyup(function () {
         getFilteredEmployeesModel($("#employee-search").val())
     })
 
     //Clicking a body row
     $(".bootstrap-header-table").on('click', '.body-row', function () {
         let currentEmployee = getEmployeeModelById($(this).attr('data-id'));
-        
-        
+
+        let mDate = moment(currentEmployee.HireDate);
+        mDate.utc();
+        let formattedDate = mDate.format('MMMM Do, YYYY');
+        currentEmployee.HireDate = formattedDate;
+
+        let displayTemplate = _.template(
+            '<strong>Address:</strong> <%- employee.AddressStreet %>, <%- employee.AddressCity %>, <%- employee.AddressState %> <%- employee.AddressZip %> <br>' +
+            '<strong>Phone Number:</strong> <%- employee.PhoneNum %> ext: <%- employee.Extension %> <br>' +
+            '<strong>Hire Date:</strong> <%- employee.HireDate %>'
+        )
+
+        let employeeContent = displayTemplate({ 'employee': currentEmployee });
+
+
+        showGenericModal(currentEmployee.FirstName + ' ' + currentEmployee.LastName, employeeContent);
+        console.log(currentEmployee);
+
+
     })
+
+    //Sorting
+    $("#header-first-name").on('click', function () {
+        let count = 0;
+        console.log("Sorting by FirstName");
+        if (count % 2 == 1) {
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
+        }
+        else {
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
+        }
+        console.log(count);
+        count++;
+        refreshEmployeeRows(employeesModel);
+
+    })
+
+    $("#header-last-name").on('click', function () {
+        console.log("Sorting by LastName");
+        employeesModel = _.sortBy(employeesModel, [function (employee) { return employee.LastName }]);
+        refreshEmployeeRows(employeesModel);
+    })
+
+    $("#header-position").on('click', function () {
+        console.log("Sorting by Position")
+        employeesModel = _.sortBy(employeesModel, [function (employee) { return employee.Position.PositionName }])
+        refreshEmployeeRows(employeesModel)
+    })
+
+
 });
 
 
@@ -65,12 +113,12 @@ function refreshEmployeeRows(employees) {
 }
 
 function getFilteredEmployeesModel(filterString) {
-    
+
     //Converting to regex 
     let caseInsensitiveString = new RegExp(filterString, 'i');
     console.log("Filtering by: " + caseInsensitiveString);
 
-    let filteredEmployees = _.filter(employeesModel, function(employee){
+    let filteredEmployees = _.filter(employeesModel, function (employee) {
         if (employee.FirstName.match(caseInsensitiveString) || employee.LastName.match(caseInsensitiveString) || employee.Position.PositionName.match(caseInsensitiveString)) {
             return employee;
         }
@@ -88,7 +136,7 @@ function getFilteredEmployeesModel(filterString) {
 }
 
 function showGenericModal(title, message) {
-    console.log("Testing showGenericModal");
+    console.log("Showing: " + title);
 
     $('.modal-title').empty();
     $('.modal-body').empty();
