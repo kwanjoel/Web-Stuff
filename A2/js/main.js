@@ -45,12 +45,18 @@ $(function () { //Ready handler\
 
 
     })
-
     //Sorting
+    let fNameCount = 0;
+    let lNameCount = 0;
+    let positionCount = 0;
+
     $("#header-first-name").on('click', function () {
         console.log("Sorting by FirstName");
-        employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
-        //employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
+        fNameCount++;
+        if (fNameCount % 2 == 1)
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
+        else
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
 
         refreshEmployeeRows(employeesModel);
 
@@ -58,13 +64,24 @@ $(function () { //Ready handler\
 
     $("#header-last-name").on('click', function () {
         console.log("Sorting by LastName");
-        employeesModel = _.sortBy(employeesModel, [function (employee) { return employee.LastName }]);
+        lNameCount++;
+
+        if (lNameCount % 2 == 1)
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['asc']);
+
+        else
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['desc']);
+
         refreshEmployeeRows(employeesModel);
     })
 
     $("#header-position").on('click', function () {
         console.log("Sorting by Position")
-        employeesModel = _.sortBy(employeesModel, [function (employee) { return employee.Position.PositionName }])
+        positionCount++;
+        if (positionCount % 2 == 1)
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['asc'])
+        else
+            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['desc'])
         refreshEmployeeRows(employeesModel)
     })
 
