@@ -4,7 +4,7 @@
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
 *
-* Name: Joel Kwan Student ID: 142473164 Date: 2018/01/20
+* Name: Joel Kwan Student ID: 142473164 Date: 2018/01/31
 *
 *
 ********************************************************************************/
@@ -49,44 +49,41 @@ $(function () { //Ready handler\
     let fNameCount = 0;
     let lNameCount = 0;
     let positionCount = 0;
+    let sortedEmployees = [];
 
     $("#header-first-name").on('click', function () {
         console.log("Sorting by FirstName");
         fNameCount++;
         if (fNameCount % 2 == 1)
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
         else
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
 
-        refreshEmployeeRows(employeesModel);
+        refreshEmployeeRows(sortedEmployees);
 
     })
 
     $("#header-last-name").on('click', function () {
         console.log("Sorting by LastName");
         lNameCount++;
-
         if (lNameCount % 2 == 1)
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['asc']);
-
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['asc']);
         else
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['desc']);
-
-        refreshEmployeeRows(employeesModel);
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['desc']);
+        refreshEmployeeRows(sortedEmployees);
     })
 
     $("#header-position").on('click', function () {
         console.log("Sorting by Position")
         positionCount++;
         if (positionCount % 2 == 1)
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['asc'])
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['asc'])
         else
-            employeesModel = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['desc'])
-        refreshEmployeeRows(employeesModel)
+            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['desc'])
+        refreshEmployeeRows(sortedEmployees)
     })
 
-
-});
+}); //Ready handler
 
 
 function initializeEmployeesModel() {
@@ -103,7 +100,7 @@ function initializeEmployeesModel() {
             showGenericModal("Error", "Unable to get Employees");
         })
 
-}
+} //initializeEmployeesModel()
 
 function refreshEmployeeRows(employees) {
     console.log("refreshing employee rows...")
@@ -121,13 +118,12 @@ function refreshEmployeeRows(employees) {
     let employeeRow = employeeTemplate({ employees });
     $("#employees-table").append(employeeRow);
 
-}
+} // refreshEmployeesRow()
 
 function getFilteredEmployeesModel(filterString) {
 
     //Converting to regex 
     let caseInsensitiveString = new RegExp(filterString, 'i');
-    console.log("Filtering by: " + caseInsensitiveString);
 
     let filteredEmployees = _.filter(employeesModel, function (employee) {
         if (employee.FirstName.match(caseInsensitiveString) || employee.LastName.match(caseInsensitiveString) || employee.Position.PositionName.match(caseInsensitiveString)) {
@@ -135,16 +131,12 @@ function getFilteredEmployeesModel(filterString) {
         }
     });
 
-    console.log(filteredEmployees);
-
-    if (filterString == "") {
+    if (filterString == "")
         refreshEmployeeRows(employeesModel);
-    }
-
-    else {
+    else
         refreshEmployeeRows(filteredEmployees);
-    }
-}
+
+} //getFilterEmployeesModel()
 
 function showGenericModal(title, message) {
     console.log("Showing: " + title);
@@ -153,7 +145,7 @@ function showGenericModal(title, message) {
     $('.modal-body').empty();
     $('.modal-title').html(title);
     $('.modal-body').html(message);
-    $('#genericModal').modal('show');
+    $('#genericModal').modal();
 }
 
 function getEmployeeModelById(id) {
@@ -162,4 +154,4 @@ function getEmployeeModelById(id) {
     })
 
     return found;
-}
+} //getFilterEmployeesModel()
