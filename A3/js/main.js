@@ -8,14 +8,14 @@
 *
 *
 ********************************************************************************/
-var viewModel = {
-    teams: ko.observable([]),
-    employees: ko.observable([]),
-    projects: ko.observable([])
-}
-
+var viewModel;
 $(function () { //Ready handler
     console.log("jQuery ready");
+    viewModel = {
+        teams: ko.observable([]),
+        employees: ko.observable([]),
+        projects: ko.observable([])
+    }
 
     initializeTeams().then(()=>{
         initializeEmployees().then(()=>{
