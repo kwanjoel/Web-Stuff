@@ -49,30 +49,30 @@
     </nav>
     </div>
 
-    <div class="col-md-12">
-        <input type="text" class="form-control" placeholder="Search for Employees" id="employee-search" />
-        <br>
-        <div class="container">
 
-
-            <div class="row">
-
-                <!-- 3 Columns -->
-
-                <div class="container bootstrap-header-table">
-                    <div class="row header-row">
-                        <div>
-                            <div class="col-xs-4 header-column" id="header-first-name">First Name</div>
-                            <div class="col-xs-4 header-column" id="header-last-name">Last Name</div>
-                            <div class="col-xs-4 header-column" id="header-position">Position</div>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>[ Team Name ]</strong>
+                        <button class="btn btn-primary btn-xs pull-right">Save</button>
                     </div>
-                    <div class="row body-rows" id="employees-table">
+                    <div class="panel-body">
+                        <h5>Team Lead</h5>
+                        <select class="single"></select>
+                        <h5>Team Members</h5>
+                        <select multiple class="multiple"></select>
+                        <h5>Projects</h5>
+                        <select multiple class="multiple"></select>
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>
     </div>
+
+
+
 
     <div class="modal fade" tabindex="-1" role="dialog" id="genericModal">
         <div class="modal-dialog" role="document">
@@ -87,8 +87,8 @@
                 </div>
             </div>
             <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
 </body>
@@ -96,5 +96,8 @@
 
 <script src="./lib/lodash.min.js"></script>
 <script src="./lib/moment.min.js"></script>
-
+<script src="./lib/knockout.mapping-latest.js"></script>
+<script src="./lib/multiple-select-master"></script>
+<!-- Knockout.js -->
+<script src="lib/knockout-3.4.2.js"></script>
 </html>

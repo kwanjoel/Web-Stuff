@@ -1,5 +1,5 @@
 /*********************************************************************************
-* WEB422 – Assignment 2
+* WEB422 – Assignment 3
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
@@ -8,150 +8,79 @@
 *
 *
 ********************************************************************************/
-var employeesModel = [];``
+var viewModel = {
+    teams: ko.observable([]),
+    employees: ko.observable([]),
+    projects: ko.observable([])
+}
 
-$(function () { //Ready handler\
+$(function () { //Ready handler
     console.log("jQuery ready");
 
-
-    //Fetch data and populate table
-    initializeEmployeesModel();
-
-    //keyup event for search field
-    $("#employee-search").keyup(function () {
-        getFilteredEmployeesModel($("#employee-search").val())
-    })
-
-    //Clicking a body row
-    $(".bootstrap-header-table").on('click', '.body-row', function () {
-        let currentEmployee = getEmployeeModelById($(this).attr('data-id'));
-
-        let mDate = moment(currentEmployee.HireDate);
-        mDate.utc();
-        let formattedDate = mDate.format('MMMM Do, YYYY');
-        currentEmployee.HireDate = formattedDate;
-
-        let displayTemplate = _.template(
-            '<strong>Address:</strong> <%- employee.AddressStreet %>, <%- employee.AddressCity %>, <%- employee.AddressState %> <%- employee.AddressZip %> <br>' +
-            '<strong>Phone Number:</strong> <%- employee.PhoneNum %> ext: <%- employee.Extension %> <br>' +
-            '<strong>Hire Date:</strong> <%- employee.HireDate %>'
-        )
-
-        let employeeContent = displayTemplate({ 'employee': currentEmployee });
-
-
-        showGenericModal(currentEmployee.FirstName + ' ' + currentEmployee.LastName, employeeContent);
-        console.log(currentEmployee);
-
-
-    })
-    //Sorting
-    let fNameCount = 0;
-    let lNameCount = 0;
-    let positionCount = 0;
-    let sortedEmployees = [];
-
-    $("#header-first-name").on('click', function () {
-        console.log("Sorting by FirstName");
-        fNameCount++;
-        if (fNameCount % 2 == 1)
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['asc']);
-        else
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.FirstName; }], ['desc']);
-
-        refreshEmployeeRows(sortedEmployees);
-
-    })
-
-    $("#header-last-name").on('click', function () {
-        console.log("Sorting by LastName");
-        lNameCount++;
-        if (lNameCount % 2 == 1)
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['asc']);
-        else
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.LastName }], ['desc']);
-        refreshEmployeeRows(sortedEmployees);
-    })
-
-    $("#header-position").on('click', function () {
-        console.log("Sorting by Position")
-        positionCount++;
-        if (positionCount % 2 == 1)
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['asc'])
-        else
-            sortedEmployees = _.orderBy(employeesModel, [function (employee) { return employee.Position.PositionName }], ['desc'])
-        refreshEmployeeRows(sortedEmployees)
+    initializeTeams().then(()=>{
+        initializeEmployees().then(()=>{
+            initializeProjects().then(()=>{
+                ko.applyBindings(viewModel);
+                $(".multiple").multipleSelect({filter:true});
+            })
+        })
+    }).catch((err)=>{
+        showGenericModal("Error", err);
     })
 
 }); //Ready handler
 
 
-function initializeEmployeesModel() {
-    $.ajax({
-        url: "https://web422teamapi.herokuapp.com/employees",
-        type: "GET",
-        contentType: "application/json"
+function initializeEmployees() {
+    return new Promise((resolve, request) => {
+        $.ajax({
+            url: "https://web422teamapi.herokuapp.com/employees",
+            type: "GET",
+            contentType: "application/js"
+        }).done((teams) => {
+            viewModel.employees = ko.mapping.fromJS(data);
+            resolve();
+        }).fail((err) => {
+            console.log("Failed to get employees")
+            reject(err);
+        })
     })
-        .done(function (employees) {
-            employeesModel = _.take(employees, 300);
-            refreshEmployeeRows(employeesModel);
+} //initializeEmployees()
+
+function initializeTeams() {
+    return new Promise((resolve, request) => {
+        $.ajax({
+            url: "https://web422teamapi.herokuapp.com/teams-raw",
+            type: "GET",
+            contentType: "application/js"
+        }).done((teams) => {
+            viewModel.teams = ko.mapping.fromJS(data);
+            resolve();
+        }).fail((err) => {
+            console.log("Failed to get teams")
+            reject(err);
         })
-        .fail(function () {
-            showGenericModal("Error", "Unable to get Employees");
+    })
+} //initializeTeams()
+
+function initializeProjects() {
+    return new Promise((resolve, request) => {
+        $.ajax({
+            url: "https://web422teamapi.herokuapp.com/projects",
+            type: "GET",
+            contentType: "application/js"
+        }).done((teams) => {
+            viewModel.projects = ko.mapping.fromJS(data);
+            resolve();
+        }).fail((err) => {
+            console.log("Failed to get projects")
+            reject(err);
         })
-
-} //initializeEmployeesModel()
-
-function refreshEmployeeRows(employees) {
-    console.log("refreshing employee rows...")
-    $("#employees-table").empty();
-
-    var employeeTemplate = _.template(
-        '<% _.forEach(employees, function(employee) { %>' +
-        '<div class="row body-row" data-id="<%- employee._id %>">' +
-        '<div class="col-xs-4 body-column">' + '<%- employee.FirstName %>' + '</div>' +
-        '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
-        '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
-        '</div>' +
-        '<% }); %>'
-    );
-    let employeeRow = employeeTemplate({ employees });
-    $("#employees-table").append(employeeRow);
-
-} // refreshEmployeesRow()
-
-function getFilteredEmployeesModel(filterString) {
-
-    //Converting to regex 
-    let caseInsensitiveString = new RegExp(filterString, 'i');
-
-    let filteredEmployees = _.filter(employeesModel, function (employee) {
-        if (employee.FirstName.match(caseInsensitiveString) || employee.LastName.match(caseInsensitiveString) || employee.Position.PositionName.match(caseInsensitiveString)) {
-            return employee;
-        }
-    });
-
-    if (filterString == "")
-        refreshEmployeeRows(employeesModel);
-    else
-        refreshEmployeeRows(filteredEmployees);
-
-} //getFilterEmployeesModel()
+    })
+} //initializeTeams()
 
 function showGenericModal(title, message) {
-    console.log("Showing: " + title);
-
-    $('.modal-title').empty();
-    $('.modal-body').empty();
-    $('.modal-title').html(title);
-    $('.modal-body').html(message);
-    $('#genericModal').modal();
+    $(".modalHeader").html(title);
+    $(".modalContent").html(message);
+    $(".genericModal").modal();
 }
-
-function getEmployeeModelById(id) {
-    let found = _.find(employeesModel, function (employee) {
-        return employee._id == id;
-    })
-
-    return found;
-} //getFilterEmployeesModel()
