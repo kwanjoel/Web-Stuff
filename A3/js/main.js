@@ -28,17 +28,15 @@ $(function () { //Ready handler
         showGenericModal("Error", err);
     })
 
-}); //Ready handler
-
-
+    
 function initializeEmployees() {
     return new Promise((resolve, request) => {
         $.ajax({
             url: "https://web422teamapi.herokuapp.com/employees",
             type: "GET",
             contentType: "application/js"
-        }).done((teams) => {
-            viewModel.employees = ko.mapping.fromJS(data);
+        }).done((employees) => {
+            viewModel.employees = ko.mapping.fromJS(employees);
             resolve();
         }).fail((err) => {
             console.log("Failed to get employees")
@@ -54,7 +52,7 @@ function initializeTeams() {
             type: "GET",
             contentType: "application/js"
         }).done((teams) => {
-            viewModel.teams = ko.mapping.fromJS(data);
+            viewModel.teams = ko.mapping.fromJS(teams);
             resolve();
         }).fail((err) => {
             console.log("Failed to get teams")
@@ -69,8 +67,8 @@ function initializeProjects() {
             url: "https://web422teamapi.herokuapp.com/projects",
             type: "GET",
             contentType: "application/js"
-        }).done((teams) => {
-            viewModel.projects = ko.mapping.fromJS(data);
+        }).done((projects) => {
+            viewModel.projects = ko.mapping.fromJS(projects);
             resolve();
         }).fail((err) => {
             console.log("Failed to get projects")
@@ -78,6 +76,10 @@ function initializeProjects() {
         })
     })
 } //initializeTeams()
+
+}); //Ready handler
+
+
 
 function showGenericModal(title, message) {
     $(".modalHeader").html(title);

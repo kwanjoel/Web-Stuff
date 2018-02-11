@@ -49,19 +49,21 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>[ Team Name ]</strong>
-                        <button class="btn btn-primary btn-xs pull-right">Save</button>
-                    </div>
-                    <div class="panel-body">
-                        <h5>Team Lead</h5>
-                        <select class="single"></select>
-                        <h5>Team Members</h5>
-                        <select multiple class="multiple"></select>
-                        <h5>Projects</h5>
-                        <select multiple class="multiple"></select>
+            <div style="display: none" data-bind="visible: 'Hello', foreach: teams">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>[ Team Name ]</strong>
+                            <button class="btn btn-primary btn-xs pull-right">Save</button>
+                        </div>
+                        <div class="panel-body">
+                            <h5>Team Lead</h5>
+                            <select class="single"></select>
+                            <h5>Team Members</h5>
+                            <select multiple class="multiple" data-bind: "selectedOptions: "></select>
+                            <h5>Projects</h5>
+                            <select multiple class="multiple"></select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +94,7 @@
 <script src="./lib/moment.min.js"></script>
 <script src="./lib/knockout-3.4.2.js"></script>
 <script src="./lib/knockout.mapping-latest.js"></script>
-<script src="./lib/multiple-select-master"></script>
-    <!-- Personal Javascript -->
-    <script src="js/main.js"></script>
+<!-- Multiple Select -->
+<script src="lib/multiple-select-master/multiple-select.js"></script>
+<!-- Personal Javascript -->
+<script src="js/main.js"></script>
