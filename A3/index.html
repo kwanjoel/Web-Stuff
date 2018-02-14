@@ -12,6 +12,7 @@
     <!-- Personal Stylesheet -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap-header-table.css">
+    <link rel="stylesheet" href="lib/multiple-select-master/multiple-select.css"
 
     <title>Joel Kwan - Web422</title>
 </head>
@@ -54,27 +55,27 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <strong data-bind="text: TeamName"></strong>
-                            <button class="btn btn-primary btn-xs pull-right">Save</button>
+                            <button class="btn btn-primary btn-xs pull-right" data-bind="click: saveTeam">Save</button>
                         </div>
                         <div class="panel-body">
                             <h5>Team Lead</h5>
                             <select class="single" data-bind="value: TeamLead,
                                                               options: $parent.employees,
-                                                              optionsText: function(item) { return ko.unwrap(item.FirstName + ' ' + ko.unwrap(item.LastName)} ,
+                                                              optionsText: function(item) { return ko.unwrap(item.FirstName) + ' ' + ko.unwrap(item.LastName) } ,
                                                               optionsValue: function(item) { return item._id }
                                                                "></select>
                             
-                            <h5>Team Members</h5>
-                            <select multiple class="multiple" data-bind: "selectedOptions: Employees,
-                                                                          options: $parent.employees,
-                                                                          optionsText: function(item) { return item.FirstName() + ' ' item.LastName()},
-                                                                          optionsValue: function(item {return item._id()} "></select>
+                           <h5>Team Members</h5>
+                            <select multiple class="multiple" data-bind="selectedOptions: Employees,
+                                                                         options: $parent.employees,
+                                                                         optionsText: function(item) { return ko.unwrap(item.FirstName) + ' ' + ko.unwrap(item.LastName) },
+                                                                         optionsValue: function(item) { return item._id } "></select>
                             
                             <h5>Projects</h5>
-                            <select multiple class="multiple" data-bind: "selectOptions: Projects, 
-                                                                          options: $parent.projects,
-                                                                          optionsText: function(item) { return item.ProjectName() },
-                                                                          optionsValue: function(item) { return item._id()} "></select>
+                            <select multiple class="multiple" data-bind="selectedOptions: Projects, 
+                                                                         options: $parent.projects,
+                                                                         optionsText: function(item) { return item.ProjectName },
+                                                                         optionsValue: function(item) { return item._id } "></select>
                         </div>
                     </div>
                 </div>
