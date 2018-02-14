@@ -17,65 +17,66 @@ $(function () { //Ready handler
         projects: ko.observable([])
     }
 
-    initializeTeams().then(()=>{
-        initializeEmployees().then(()=>{
-            initializeProjects().then(()=>{
+    initializeTeams().then(() => {
+        initializeEmployees().then(() => {
+            initializeProjects().then(() => {
                 ko.applyBindings(viewModel);
-                $(".multiple").multipleSelect({filter:true});
+                $(".single").multipleSelect({ single: true, filter: true });
+                //$(".multiple").multipleSelect({ filter: true });
             })
         })
-    }).catch((err)=>{
+    }).catch((err) => {
         showGenericModal("Error", err);
     })
 
-    
-function initializeEmployees() {
-    return new Promise((resolve, request) => {
-        $.ajax({
-            url: "https://web422teamapi.herokuapp.com/employees",
-            type: "GET",
-            contentType: "application/js"
-        }).done((employees) => {
-            viewModel.employees = ko.mapping.fromJS(employees);
-            resolve();
-        }).fail((err) => {
-            console.log("Failed to get employees")
-            reject(err);
-        })
-    })
-} //initializeEmployees()
 
-function initializeTeams() {
-    return new Promise((resolve, request) => {
-        $.ajax({
-            url: "https://web422teamapi.herokuapp.com/teams-raw",
-            type: "GET",
-            contentType: "application/js"
-        }).done((teams) => {
-            viewModel.teams = ko.mapping.fromJS(teams);
-            resolve();
-        }).fail((err) => {
-            console.log("Failed to get teams")
-            reject(err);
+    function initializeEmployees() {
+        return new Promise((resolve, request) => {
+            $.ajax({
+                url: "https://web422teamapi.herokuapp.com/employees",
+                type: "GET",
+                contentType: "application/js"
+            }).done((employees) => {
+                viewModel.employees = ko.mapping.fromJS(employees);
+                resolve();
+            }).fail((err) => {
+                console.log("Failed to get employees")
+                reject(err);
+            })
         })
-    })
-} //initializeTeams()
+    } //initializeEmployees()
 
-function initializeProjects() {
-    return new Promise((resolve, request) => {
-        $.ajax({
-            url: "https://web422teamapi.herokuapp.com/projects",
-            type: "GET",
-            contentType: "application/js"
-        }).done((projects) => {
-            viewModel.projects = ko.mapping.fromJS(projects);
-            resolve();
-        }).fail((err) => {
-            console.log("Failed to get projects")
-            reject(err);
+    function initializeTeams() {
+        return new Promise((resolve, request) => {
+            $.ajax({
+                url: "https://web422teamapi.herokuapp.com/teams-raw",
+                type: "GET",
+                contentType: "application/js"
+            }).done((teams) => {
+                viewModel.teams = ko.mapping.fromJS(teams);
+                resolve();
+            }).fail((err) => {
+                console.log("Failed to get teams")
+                reject(err);
+            })
         })
-    })
-} //initializeTeams()
+    } //initializeTeams()
+
+    function initializeProjects() {
+        return new Promise((resolve, request) => {
+            $.ajax({
+                url: "https://web422teamapi.herokuapp.com/projects",
+                type: "GET",
+                contentType: "application/js"
+            }).done((projects) => {
+                viewModel.projects = ko.mapping.fromJS(projects);
+                resolve();
+            }).fail((err) => {
+                console.log("Failed to get projects")
+                reject(err);
+            })
+        })
+    } //initializeTeams()
 
 }); //Ready handler
 
