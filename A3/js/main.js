@@ -10,19 +10,14 @@
 ********************************************************************************/
 var viewModel = {
     teams: ko.observable([]),
-    employees: ko.observable([]),
+    employees: ko.observable([]),   
     projects: ko.observable([])
 }
 $(function () { //Ready handler
     console.log("jQuery ready");
 
     initializeTeams().then(initializeEmployees).then(initializeProjects).then(() => {
-        console.log(ko.mapping.toJS(viewModel.teams))
-        console.log(ko.mapping.toJS(viewModel.employees))
-        console.log(ko.mapping.toJS(viewModel.projects))
         ko.applyBindings(viewModel);
-        console.log("Binding complete")
-
         $(".single").multipleSelect({ single: true, filter: true });
         $(".multiple").multipleSelect({ filter: true });
     

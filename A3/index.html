@@ -12,7 +12,7 @@
     <!-- Personal Stylesheet -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap-header-table.css">
-    <link rel="stylesheet" href="lib/multiple-select-master/multiple-select.css"
+    <link rel="stylesheet" href="lib/multiple-select-master/multiple-select.css">
 
     <title>Joel Kwan - Web422</title>
 </head>
@@ -50,7 +50,7 @@
 
     <div class="container">
         <div class="row">
-            <div style="display: none" data-bind="visible: true, foreach: teams">
+            <div style="display: none" data-bind="visible: true, foreach: teams.sort(function (l, r) { return l._id() > r._id() ? 1 : -1 })">
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
