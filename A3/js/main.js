@@ -4,20 +4,22 @@
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
 *
-* Name: Joel Kwan Student ID: 142473164 Date: 2018/01/31
+* Name: Joel Kwan Student ID: 142473164 Date: 2018/02/21
 *
 *
 ********************************************************************************/
 var viewModel = {
     teams: ko.observable([]),
     employees: ko.observable([]),   
-    projects: ko.observable([])
+    projects: ko.observable([]),
+    loader: ko.observable(true)
 }
 $(function () { //Ready handler
     console.log("jQuery ready");
 
     initializeTeams().then(initializeEmployees).then(initializeProjects).then(() => {
         ko.applyBindings(viewModel);
+        viewModel.loader(false);
         $(".single").multipleSelect({ single: true, filter: true });
         $(".multiple").multipleSelect({ filter: true });
     

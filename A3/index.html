@@ -50,6 +50,12 @@
 
     <div class="container">
         <div class="row">
+                <div class="spinner" data-bind="visible:loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                      </div>
+
             <div style="display: none" data-bind="visible: true, foreach: teams.sort(function (l, r) { return l._id() > r._id() ? 1 : -1 })">
                 <div class="col-md-4">
                     <div class="panel panel-default">
