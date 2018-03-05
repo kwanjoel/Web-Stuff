@@ -43,7 +43,7 @@ class ProjectsPanel extends Component {
                                 </tbody>
                             </table>
                         </div>
-                        <a href="/projects" className="btn btn-primary form-control">View All Project Data</a>
+                        <Link to="/projects" className="btn btn-primary form-control">View All Project Data</Link>
                     </div>
                 </div>
             </div>

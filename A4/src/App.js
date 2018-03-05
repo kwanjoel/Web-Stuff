@@ -5,41 +5,31 @@ import Projects from './Projects';
 import Teams from './Teams';
 import Employees from './Employees';
 import NotFound from './NotFound';
-import MainContainer from './MainContainer';
 
 class App extends Component {
   render() {
     return (
-      <div>
-          <Overview/>
-          <Projects/>
-          <Teams/>
-          <Employees/>
-      </div>
 
-      /* <Switch>
-        <Route exact path='/' render={() => {
+      <Switch>
+        <Route exact path='/' render={() => (
           <Overview />
-        }}/>
-
-        <Route exact path='/Projects' render={() => {
+        )} />
+        <Route exact path='/Projects' render={() => (
           <Projects />
-        }}/>
-
-        <Route exact path='/Employees' render={() => {
-          <Employees />
-        }}/>
-
-        <Route exact path='/Teams' render={() => {
+        )} />
+        <Route exact path='/Teams' render={() => (
           <Teams />
-        }}/>
+        )} />
+        <Route exact path='/Employees' render={() => (
+          <Employees />
+        )} />
 
         <Route render={() => (
           <NotFound />
-        )}/>
-      </Switch>
+        )} />
 
-      */
+
+      </Switch>
     );
   }
 }
