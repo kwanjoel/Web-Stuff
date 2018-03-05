@@ -42,7 +42,7 @@ class TeamsPanel extends Component {
                                 </tbody>
                             </table>
                         </div>
-                        <Link href="/employees" className="btn btn-primary form-control">View All Employee Data</Link>
+                        <a href="/employees" className="btn btn-primary form-control">View All Employee Data</a>
                     </div>
                 </div>
             </div>

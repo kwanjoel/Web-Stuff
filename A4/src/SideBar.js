@@ -7,15 +7,15 @@ class SideBar extends Component {
             <div className="col-sm-3 col-md-2 sidebar">
                 <ul className="nav nav-sidebar">
                     <li className={(this.props.highlight === "Overview" ? 'active' : '')}>
-                        <Link> href="/">Overview <span className="sr-only">(current)</span></Link></li>
+                        <a href="/">Overview <span className="sr-only">(current)</span></a></li>
                 </ul>
                 <ul className="nav nav-sidebar">
                     <li className={(this.props.highlight === "Projects" ? 'active' : '')}>
-                        <Link> href="/projects">Projects</Link></li>
+                        <a href="/projects">Projects</a></li>
                     <li className={(this.props.highlight === "Teams" ? 'active' : '')}>
-                        <Link> href="/teams">Teams</Link></li>
+                        <a href="/teams">Teams</a></li>
                     <li className={(this.props.highlight === "Employees" ? 'active' : '')}>
-                        <Link> href="/employees">Employees</Link></li>
+                        <a href="/employees">Employees</a></li>
                 </ul>
             </div>
         )

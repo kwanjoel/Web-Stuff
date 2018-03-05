@@ -10,9 +10,12 @@ import MainContainer from './MainContainer';
 class App extends Component {
   render() {
     return (
-        <MainContainer> 
-          
-        </MainContainer>
+      <div>
+          <Overview/>
+          <Projects/>
+          <Teams/>
+          <Employees/>
+      </div>
 
       /* <Switch>
         <Route exact path='/' render={() => {
