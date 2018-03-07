@@ -10,6 +10,7 @@ class Employees extends Component {
     }
     componentDidMount() {
         axios.get("https://web422teamapi.herokuapp.com/employees").then((res) => {
+            res.data.sort((a,b)=>(a._id > b._id ? 1 : -1));
             this.setState({ Employees: res.data });
         }).catch((err) => {
             console.log("error");
@@ -34,7 +35,7 @@ class Employees extends Component {
                                     <tr key={employee._id}>
                                         <td>{employee.FirstName} {employee.LastName} - {employee.Position.PositionName}</td>
                                         <td>{employee.AddressStreet} {employee.AddressCity} {employee.AddressState}, {employee.AddressZip}</td>
-                                        <td>{employee.PhoneNum}</td>
+                                        <td>{employee.PhoneNum} ex: {employee.Extension}</td>
                                         <td>{moment(employee.HireDate).format("LL")}</td>
                                         <td>{employee.SalaryBonus}</td>
                                     </tr>

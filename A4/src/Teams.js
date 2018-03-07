@@ -9,6 +9,7 @@ class Teams extends Component {
     }
     componentDidMount() {
         axios.get("https://web422teamapi.herokuapp.com/teams").then((res) => {
+            res.data.sort((a,b)=>(a._id > b._id ? 1 : -1));
             this.setState({ Teams: res.data });
         }).catch((err) => {
             console.log("error");
