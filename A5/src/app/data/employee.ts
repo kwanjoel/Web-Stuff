@@ -1,4 +1,3 @@
-import { Position } from './position';
 export class Employee {
     private _id: string;
     private FirstName: string;

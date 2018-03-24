@@ -12,11 +12,17 @@ export class PositionsComponent implements OnInit {
   positions: Position[];
   getPositionSub: any;
   loadingError: boolean = false;
-  loading: boolean = true;
+  isLoading: boolean = false;
+  
   constructor(private ps: PositionService) { }
 
+  
+
   ngOnInit() {
+    this.isLoading = true;
     this.getPositionSub = this.ps.getPositions().subscribe(positions => this.positions = positions);
+    this.isLoading = false;
+
   }
 
   ngOnDestroy() {

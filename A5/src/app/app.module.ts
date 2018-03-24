@@ -15,6 +15,7 @@ import { PositionsComponent } from './positions/positions.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PositionService } from './data/position.service';
 import { EmployeeService } from './data/employee.service';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EmployeeService } from './data/employee.service';
     HomeComponent,
     EmployeesComponent,
     PositionsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

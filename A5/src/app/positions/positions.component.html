@@ -1,27 +1,28 @@
 <div class="center">
-    <h2>Positions</h2>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non odio sed eros tristique bibendum.</p>
-   </div>
+  <h2>Positions</h2>
+  <p class="lead"></p>
+</div>
 
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-condensed table-hover">
-            <thead>
+      <app-loading *ngIf='isLoading'></app-loading>
+      <div *ngIf='!isLoading' class="table-responsive">
+        <table class="table table-condensed table-hover">
+          <thead>
             <th>Position Name</th>
-            <th>Position Description</th>
-            <th>Position Base Salary</th> 
-            </thead>
-            <tbody>
+            <th>Description</th>
+            <th>Base Salary</th>
+          </thead>
+          <tbody>
             <tr *ngFor="let position of positions">
-                <td>{{position.PositionName}}</td>
-                <td>{{position.PositionDescription}}</td>
-                <td>{{position.PositionBaseSalary}}</td>
-              </tr>
-            </tbody>
-            </table>
-           </div>
+              <td>{{position.PositionName}}</td>
+              <td>{{position.PositionDescription}}</td>
+              <td>${{position.PositionBaseSalary | number:'.2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
