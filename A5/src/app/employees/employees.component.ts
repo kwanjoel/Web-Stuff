@@ -23,8 +23,6 @@ export class EmployeesComponent implements OnInit {
       () => {this.isLoading = false;}
     )
 
-      //employees => this.employees = employees);
-
   }
   ngOnDestroy() {
     this.getEmployeeSub.unsubscribe();
