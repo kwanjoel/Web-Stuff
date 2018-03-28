@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-md-12">
       <app-loading *ngIf="isLoading"></app-loading>
-      <div class="table-responsive">
+      <div *ngIf='!isLoading' class="table-responsive">
         <table class="table table-condensed table-hover">
           <thead>
             <th>Name</th>

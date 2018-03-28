@@ -19,9 +19,13 @@ export class PositionsComponent implements OnInit {
   
 
   ngOnInit() {
-    this.isLoading = true;
-    this.getPositionSub = this.ps.getPositions().subscribe(positions => this.positions = positions);
-    this.isLoading = false;
+    
+    this.getPositionSub = this.ps.getPositions().subscribe(
+      (positions) => {this.positions = positions},
+      (err) => {this.loadingError = true},
+      () => {this.isLoading = false}
+    );
+   
 
   }
 
