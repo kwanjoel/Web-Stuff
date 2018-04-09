@@ -1,0 +1,40 @@
+<div class="center">
+  <h2>Employees</h2>
+  <p class="lead"></p>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-loading *ngIf="isLoading"></app-loading>
+
+      <input class="form-control" id="EmployeeSearch" name="EmployeeSearch" type="text" placeholder="Search 
+Employees by Full Name or Position" (keyup)="onEmployeeSearchKeyUP($event)" />
+      <br />
+
+      <div *ngIf='!isLoading' class="table-responsive">
+        <table class="table table-condensed table-hover">
+          <thead>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Position</th>
+            <th>Hire Date</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of filteredEmployees" (click)="routeEmployee(employee._id)">
+              <td>{{employee.FirstName}} {{employee.LastName}}</td>
+              <td>{{employee.AddressStreet}} {{employee.AddressState}} {{employee.AddressCity}} {{employee.AddressZip}}</td>
+              <td>{{employee.PhoneNumber}} ext: {{employee.Extension}}</td>
+              <td>{{employee.Position.PositionName}}</td>
+              <td>{{employee.HireDate | date:'longDate'}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
